@@ -1,0 +1,33 @@
+require AsyncTask;
+require FabricSynchronization;
+
+object BackgroundWorker : AsyncTask {
+    UInt32 myVal;
+};
+
+function BackgroundWorker.doTask!(Data data) {
+    report('Data == null: ' + data == Data());
+    for (UInt32 i = 0; i < 10; i++)
+    {
+        this.myVal++;
+        this.percentage = i * 10;
+        ActiveWait(2);
+    }
+    
+}
+
+operator entry() {
+    ActiveWait(10);
+    BackgroundWorker worker();
+    doAsyncTask(worker, Data());
+    
+    report('myval= ' + worker.myVal);
+    for (UInt32 i = 0; i < 20; i++)
+    {
+        report(' Main-Thread Doing: ' + i);
+        report(' ThreadVal: ' + worker.myVal);
+        report(' percentage: ' + worker.percentComplete());
+        
+        ActiveWait(1);
+    }
+}

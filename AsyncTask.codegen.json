@@ -1,0 +1,24 @@
+{
+  "header": "#include \"../CustomCPP/AsyncTask.h\"",
+  "parameterprefix": "at",
+  "functionentry": "AT_TRY_STATEMENT", 
+  "functionexit": "AT_CATCH_STATEMENT", 
+  "functionexitreturn": "AT_CATCH_STATEMENT_RETURN",
+  "typemapping": {
+    "AtParamValue": {
+        "ctype": "AtParamValue*",
+        "from": "KlParamValue_to_AtParamValue", 
+        "methodop": "->",
+        "to": "AtParamValue_to_KLParamValue"
+    }
+  },
+
+  "functionbodies": {
+    "_fe_AsyncTaskJoin"   : "  return JoinAsyncTask(this_);\n\n",
+    "_fe_doAsyncTask"     : "  StartAsyncTask(task, data);\n",
+    "_fe_doAsyncTask_"     : "  StartAsyncTask(task, data);\n"
+  },
+  "parameterconversionstoskip": [
+  ]
+}
+

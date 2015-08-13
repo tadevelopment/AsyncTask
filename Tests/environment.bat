@@ -1,0 +1,1 @@
+set FABRIC_EXTS_PATH=%FABRIC_EXTS_PATH%;%~dp0../Exts

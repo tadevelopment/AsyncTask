@@ -1,0 +1,4 @@
+GenCPP/
+MSVS/
+.sconsign.dblite
+*.exp

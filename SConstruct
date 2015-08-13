@@ -21,6 +21,8 @@ fabricBuildEnv.Append(CPPPATH = [
   './cpp'
   ])
 
+os.makedirs('./GenCPP/')
+
 old_files = glob.glob('./GenCPP/*.*')
 for file in old_files:
     os.remove(file)

@@ -28,7 +28,7 @@ interface AsyncTask_ {
     requestCancel();
 
     // Call this function to block the calling thread until this task is complete
-    Boolean join(Float32 timeout/*=0*/);
+    Boolean join(/*Float32 timeout=0*/);
 
     // Return's true if the doTask function has completed
     Boolean complete();
@@ -68,9 +68,19 @@ AsyncTask.requestCancel() { throw('Cancel not implemented'); }
 // \param timeout the maximum length of time to wait for the
 // task to finish.  If the task cannot be completed in this time,
 // the thread will be killed?  Er... maybe not?
-function Boolean AsyncTask.join(Float32 timeout/*=0*/) = '_fe_AsyncTaskJoin';
+function Boolean AsyncTask.join(/*Float32 timeout=0*/) = '_fe_AsyncTaskJoin';
 
 // Call this function to begin an async thread task.
 // Returns the C++11 handle to the thread.
-function Data doAsyncTask(Ref<AsyncTask_> task, Data data) = '_fe_doAsyncTask_';
-function Data doAsyncTask(Ref<AsyncTask> task, Data data) = '_fe_doAsyncTask';
+function Data doAsyncTask(io Ref<AsyncTask_> task, Data data) = '_fe_doAsyncTask_';
+function Data doAsyncTask(io Ref<AsyncTask> task, Data data) = '_fe_doAsyncTask';
+
+//
+// HACK
+// Until we have a better location for this function, or I can 
+// remove it because of an official solution, this
+// fn is purely to get a numeric value from a data.  The
+// numeric value is used in the DemoPythonApp to pass memory
+// address through python to QImage (and avoid sending
+// rendered image data through Ptyhon at all)
+function UInt64 dataToUInt(Data data) = '_fe_castDataToUInt';

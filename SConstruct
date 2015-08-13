@@ -5,7 +5,7 @@
 # Copyright 2010-2015 Fabric Software Inc. All rights reserved.
 #
 
-import os, sys, glob
+import os, sys, glob, shutil
 
 try:
   fabricPath = os.environ['FABRIC_DIR']
@@ -21,11 +21,10 @@ fabricBuildEnv.Append(CPPPATH = [
   './cpp'
   ])
 
+# Clean generated folder
+shutil.rmtree('./GenCPP')
 os.makedirs('./GenCPP/')
 
-old_files = glob.glob('./GenCPP/*.*')
-for file in old_files:
-    os.remove(file)
 
 cppFiles = glob.glob('./CustomCPP/*.cpp')
 klFiles = glob.glob('./Exts/AsyncTask/*.kl')

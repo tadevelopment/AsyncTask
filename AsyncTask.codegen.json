@@ -16,7 +16,8 @@
   "functionbodies": {
     "_fe_AsyncTaskJoin"   : "  return JoinAsyncTask(this_);\n\n",
     "_fe_doAsyncTask"     : "  StartAsyncTask(task, data);\n",
-    "_fe_doAsyncTask_"     : "  StartAsyncTask(task, data);\n"
+    "_fe_doAsyncTask_"     : "  StartAsyncTask(task, data);\n",
+    "_fe_castDataToUInt"  : "  return (unsigned long long)data;"
   },
   "parameterconversionstoskip": [
   ]

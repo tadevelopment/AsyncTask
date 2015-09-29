@@ -22,8 +22,10 @@ fabricBuildEnv.Append(CPPPATH = [
   ])
 
 # Clean generated folder
-shutil.rmtree('./GenCPP')
-os.makedirs('./GenCPP/')
+genFolder = './GenCPP'
+if os.path.exists(genFolder):
+  shutil.rmtree(genFolder)
+os.makedirs(genFolder)
 
 
 cppFiles = glob.glob('./CustomCPP/*.cpp')

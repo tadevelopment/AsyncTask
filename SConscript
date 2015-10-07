@@ -141,7 +141,7 @@ buildFlags = {
       'linkflags': [ '-m32' ]
       },
     'x86_64' : {
-      'ccflags': [ '-m64' ],
+      'ccflags': [ '-m64', '-std=c++0x' ],
       'linkflags': [ '-m64' ]
       },
     'Debug' : {
@@ -233,7 +233,7 @@ def buildExtension(env, target, klSources, cppSources, fpmFile):
       env['ENV']['LD_LIBRARY_PATH'] = os.environ['LD_LIBRARY_PATH']
     kl2edkBin = fabricDir.Dir('bin').File('kl2edk')
   
-  klcmd = 'kl2edk "./Exts/AsyncTask/AsyncTask.fpm.json" -o "./GenCPP" -c "./GenCPP"'
+  klcmd = 'kl2edk "exts/AsyncTask/AsyncTask.fpm.json" -o "GenCPP" -c "GenCPP"'
   call(klcmd, shell=True)
 
   cppSources = cppSources + glob.glob('./GenCPP/*.cpp')

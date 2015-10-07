@@ -5,7 +5,7 @@
 # Copyright 2010-2015 Fabric Software Inc. All rights reserved.
 #
 
-import os, sys, glob, shutil
+import os, sys, glob, shutil, platform
 
 try:
   fabricPath = os.environ['FABRIC_DIR']
@@ -18,36 +18,38 @@ SConscript('SConscript')
 Import('fabricBuildEnv')
 
 fabricBuildEnv.Append(CPPPATH = [
-  './cpp'
+  'cpp'
   ])
+fabricBuildEnv.Append( RPATH = fabricBuildEnv.Literal('\\$$ORIGIN'))
 
 # Clean generated folder
-genFolder = './GenCPP'
+genFolder = 'GenCPP'
 if os.path.exists(genFolder):
   shutil.rmtree(genFolder)
 os.makedirs(genFolder)
 
 
-cppFiles = glob.glob('./CustomCPP/*.cpp')
-klFiles = glob.glob('./Exts/AsyncTask/*.kl')
+cppFiles = glob.glob('CustomCPP/*.cpp')
+klFiles = glob.glob('exts/AsyncTask/*.kl')
 dll = fabricBuildEnv.Extension(
   'AsyncTask',
   klFiles,
   cppFiles,
-  './Exts/AsyncTask/AsyncTask.fpm.json'
+  'exts/AsyncTask/AsyncTask.fpm.json'
   )
 
-fabricBuildEnv.Install('./Exts/AsyncTask', dll)
+fabricBuildEnv.Install('exts/AsyncTask', dll)
 
-cppFiles = cppFiles + glob.glob('./GenCPP/*.cpp')
+cppFiles = cppFiles + glob.glob('GenCPP/*.cpp')
 
 for i in range(len(cppFiles)):
   cppFiles[i] = cppFiles[i].replace('\\', '/')
-  cppFiles[i] = '../GenCPP/' + os.path.relpath(cppFiles[i], './GenCPP')
+  cppFiles[i] = '../GenCPP/' + os.path.relpath(cppFiles[i], 'GenCPP')
 
-# Build a VS project to go along with this dll
-# We can use this for debugging the project later.
-fabricBuildEnv.MSVSProject(target = './MSVS/AsyncTask' + fabricBuildEnv['MSVSPROJECTSUFFIX'],
+if platform.system() == 'Windows':
+  # Build a VS project to go along with this dll
+  # We can use this for debugging the project later.
+  fabricBuildEnv.MSVSProject(target = 'MSVS/AsyncTask' + fabricBuildEnv['MSVSPROJECTSUFFIX'],
                 srcs = cppFiles,
                 buildtarget = dll[0],
                 variant = 'Debug|x64')

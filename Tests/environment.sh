@@ -1,0 +1,3 @@
+ASYNCTASK_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+FABRIC_EXTS_PATH="$FABRIC_EXTS_PATH:$ASYNCTASK_DIR/../exts"
+export FABRIC_EXTS_PATH

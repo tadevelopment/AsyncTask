@@ -2,3 +2,4 @@ GenCPP/
 MSVS/
 .sconsign.dblite
 *.exp
+/libAsyncTask-Linux-x86_64.so
